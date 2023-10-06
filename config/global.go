@@ -17,11 +17,12 @@ type APIResponse struct {
 
 type Event struct {
 	Id          string `json:"id"`
-	Url         string `json:"url"`
 	Title       string `json:"title"`
 	Description string `json:"description"`
 	Date_start  string `json:"date_start"`
 	Date_end    string `json:"date_end"`
+	Url         string `json:"url"`
+	Cover_url   string `json:"cover_url"`
 	User        User
 	Note        string
 	NbVote      string

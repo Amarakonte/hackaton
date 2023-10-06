@@ -25,9 +25,15 @@
     display: flex;
     justify-content: center;
 }
+.event-desc > .event-description {
+    min-height: 200px;
+    text-align: center; /* Centrez le texte horizontalement */
+    display: block; /* Affichez le contenu en une seule colonne */
+}  
 .event-description {
     min-height: 200px;
-}
+    /* text-align: center; Centrez le texte horizontalement */
+}  
 .event-desc h4 {
     text-align: center;
     margin: 0 0 40px 0;

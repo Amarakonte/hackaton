@@ -11,9 +11,9 @@ func DisplayEvents(data map[string]interface{}, searching string) {
 	var rows *sql.Rows
 	var err error
 	if searching == "" {
-		rows, err = db.Database.Query("SELECT event.id, event.title, event.description, event.date_start, event.date_end, user.username, user.id, event.note, event.nbVote FROM event INNER JOIN user ON user.id = event.creatorID")
+		rows, err = db.Database.Query("SELECT event.id, event.title, event.description, event.date_start, event.date_end, event.cover_url, event.url, user.username, user.id, event.note, event.nbVote FROM event INNER JOIN user ON user.id = event.creatorID")
 	} else {
-		rows, err = db.Database.Query("SELECT event.id, event.title, event.description, event.date_start, event.date_end, user.username, user.id, event.note, event.nbVote FROM event INNER JOIN user ON user.id = event.creatorID WHERE event.title = ?", searching)
+		rows, err = db.Database.Query("SELECT event.id, event.title, event.description, event.date_start, event.date_end, event.cover_url, event.url, user.username, user.id, event.note, event.nbVote FROM event INNER JOIN user ON user.id = event.creatorID WHERE event.title = ?", searching)
 	}
 	if err != nil {
 		panic(err)
@@ -23,7 +23,7 @@ func DisplayEvents(data map[string]interface{}, searching string) {
 
 	for rows.Next() {
 		var event Event
-		rows.Scan(&event.Id, &event.Title, &event.Description, &event.Date_start, &event.Date_end, &event.User.Username, &event.User.Id, &event.Note, &event.NbVote)
+		rows.Scan(&event.Id, &event.Title, &event.Description, &event.Date_start, &event.Date_end, &event.Cover_url, &event.Url, &event.User.Username, &event.User.Id, &event.Note, &event.NbVote)
 
 		// Remplace les \n par des <br> pour sauter des lignes en html
 		event.Description = strings.Replace(strings.Replace(event.Description, string('\r'), "", -1), string('\n'), "<br>", -1)
@@ -39,13 +39,13 @@ func DisplayEvents(data map[string]interface{}, searching string) {
 func GetEvent(data map[string]interface{}, id_event string) {
 	db := GetDB()
 
-	rows, err := db.Database.Query("SELECT event.title, event.description, event.date_start, event.date_end, user.username, user.id, event.note, event.nbVote FROM event INNER JOIN user ON user.id = event.creatorID WHERE event.id = ?", id_event)
+	rows, err := db.Database.Query("SELECT event.title, event.description, event.date_start, event.date_end, event.cover_url, event.url, user.username, user.id, event.note, event.nbVote FROM event INNER JOIN user ON user.id = event.creatorID WHERE event.id = ?", id_event)
 	if err != nil {
 		panic(err)
 	}
 	var event Event
 	for rows.Next() {
-		err := rows.Scan(&event.Title, &event.Description, &event.Date_start, &event.Date_end, &event.User.Username, &event.User.Id, &event.Note, &event.NbVote)
+		err := rows.Scan(&event.Title, &event.Description, &event.Date_start, &event.Date_end, &event.Cover_url, &event.Url, &event.User.Username, &event.User.Id, &event.Note, &event.NbVote)
 		if err != nil {
 			panic(err)
 		}

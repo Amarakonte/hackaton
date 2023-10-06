@@ -74,14 +74,14 @@ func UpdateNote(db db, data map[string]interface{}, id_event string, newNote str
 }
 
 func GetAllEvents(db db) []Event {
-	rows, err := db.Database.Query("SELECT event.id, event.title, event.description, event.date_start, event.date_end, user.username, user.id FROM event INNER JOIN user ON user.id = event.creatorID ORDER BY event.id")
+	rows, err := db.Database.Query("SELECT event.id, event.title, event.description, event.date_start, event.date_end, event.cover_url, user.username, user.id FROM event INNER JOIN user ON user.id = event.creatorID ORDER BY event.id")
 	if err != nil {
 		panic(err)
 	}
 	var events []Event
 	for rows.Next() {
 		var event Event
-		rows.Scan(&event.Id, &event.Title, &event.Description, &event.Date_start, &event.Date_end, &event.User.Username, &event.User.Id)
+		rows.Scan(&event.Id, &event.Title, &event.Description, &event.Date_start, &event.Date_end, &event.Cover_url, &event.User.Username, &event.User.Id)
 		events = append(events, event)
 	}
 

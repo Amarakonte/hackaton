@@ -17,11 +17,11 @@ func CreateDB() (*sql.DB, error) {
 		return nil, err
 	}
 
-	// statement, err := db.Prepare("DROP DATABASE IF EXISTS hackaton")
+	// statementa, err := db.Prepare("DROP DATABASE IF EXISTS hackaton")
 	// if err != nil {
 	// 	panic(err)
 	// }
-	// statement.Exec()
+	// statementa.Exec()
 
 	statement, err := db.Prepare("CREATE DATABASE IF NOT EXISTS hackaton")
 	if err != nil {
@@ -130,7 +130,7 @@ func (databases db) CreateUserTable() {
 }
 
 func (databases db) CreateEventTable() {
-	statement, err := databases.Database.Prepare("CREATE TABLE IF NOT EXISTS event (id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255), description TEXT, date_start DATETIME, date_end DATETIME, url VARCHAR(255), creatorID INT, FOREIGN KEY (creatorID) REFERENCES user(id) ON DELETE CASCADE, note numeric(3,2) NOT NULL, nbVote INTEGER NOT NULL)")
+	statement, err := databases.Database.Prepare("CREATE TABLE IF NOT EXISTS event (id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255), description TEXT, date_start DATETIME, date_end DATETIME, url VARCHAR(255), cover_url VARCHAR(255) NULL, creatorID INT, FOREIGN KEY (creatorID) REFERENCES user(id) ON DELETE CASCADE, note numeric(3,2) NOT NULL, nbVote INTEGER NOT NULL)")
 	if err != nil {
 		panic(err)
 	}
